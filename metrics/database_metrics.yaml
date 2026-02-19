@@ -1,11 +1,11 @@
-# Metrics on technology_usage (one row per respondent per technology)
-# For technology adoption and compensation-by-tech analytics
+# Metrics on database_analysis (one row per respondent × database × relationship)
+# For database popularity, admired/desired analysis, and compensation comparison
 
 version: 1
 type: metrics_view
 
-display_name: "Technology Metrics"
-model: technology_usage
+display_name: "Database Metrics"
+model: database_analysis
 timeseries: survey_date
 smallest_time_grain: "year"
 
@@ -15,13 +15,13 @@ dimensions:
     column: survey_year
     display_name: Survey Year
 
-  - name: technology_name
-    column: technology_name
-    display_name: Technology
+  - name: database_name
+    column: database_name
+    display_name: Database
 
-  - name: technology_category
-    column: technology_category
-    display_name: Category
+  - name: relationship
+    column: relationship
+    display_name: Relationship (Used/Admired/Desired)
 
   - name: country
     column: country
@@ -39,19 +39,32 @@ dimensions:
     column: org_size
     display_name: Organization Size
 
+  - name: is_data_engineer
+    column: is_data_engineer
+    display_name: Data Engineer?
+
+  - name: dev_type
+    column: dev_type
+    display_name: Developer Type
+
 # ─── Measures ───────────────────────────────────────
 measures:
+  - name: mentions
+    display_name: "Mentions"
+    expression: COUNT(*)
+    format_preset: humanize
+
   - name: unique_users
-    display_name: "Users"
+    display_name: "Unique Users"
     expression: COUNT(DISTINCT ResponseId)
     format_preset: humanize
 
-  - name: avg_comp_by_tech
+  - name: avg_compensation
     display_name: "Avg Compensation"
     expression: AVG(comp_annual)
     format_preset: currency_usd
 
-  - name: median_comp_by_tech
+  - name: median_compensation
     display_name: "Median Compensation"
     expression: MEDIAN(comp_annual)
     format_preset: currency_usd

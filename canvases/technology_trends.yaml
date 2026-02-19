@@ -1,0 +1,176 @@
+# Technology Trends & Developer Workforce — Deep Dive Canvas
+
+type: canvas
+display_name: "Technology Trends"
+
+defaults:
+  time_range: P6Y
+
+rows:
+  # ═══════════════════════════════════════════════════════════
+  # Row 1: Technology KPIs
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - kpi_grid:
+          measures:
+            - unique_users
+            - avg_comp_by_tech
+            - median_comp_by_tech
+          metrics_view: technology_metrics
+        width: 12
+    height: 150px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 2: Language Popularity + Database Popularity (by year)
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - stacked_bar:
+          metrics_view: technology_metrics
+          x:
+            field: survey_year
+            type: nominal
+          y:
+            field: unique_users
+            type: quantitative
+          color:
+            field: technology_name
+            type: nominal
+            limit: 10
+          dimension_filters: technology_category IN ('Language')
+          title: "Language Adoption Over Time"
+        width: 6
+
+      - stacked_bar:
+          metrics_view: technology_metrics
+          x:
+            field: survey_year
+            type: nominal
+          y:
+            field: unique_users
+            type: quantitative
+          color:
+            field: technology_name
+            type: nominal
+            limit: 10
+          dimension_filters: technology_category IN ('Database')
+          title: "Database Adoption Over Time"
+        width: 6
+    height: 350px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 3: Editor Wars — Most Used vs Highest-Paying
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - leaderboard:
+          metrics_view: technology_metrics
+          dimensions: [technology_name]
+          measures: [unique_users]
+          num_rows: 15
+          dimension_filters: technology_category IN ('Editor/IDE')
+          title: "Most Used Editors/IDEs"
+        width: 6
+
+      - leaderboard:
+          metrics_view: technology_metrics
+          dimensions: [technology_name]
+          measures: [median_comp_by_tech]
+          num_rows: 15
+          dimension_filters: technology_category IN ('Editor/IDE')
+          title: "Highest-Paying by Editor/IDE"
+        width: 6
+    height: 350px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 4: OS Distribution + Web Framework Leaderboard
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - pie_chart:
+          metrics_view: technology_metrics
+          color:
+            field: technology_name
+            type: nominal
+            limit: 8
+          measure:
+            field: unique_users
+            type: quantitative
+          innerRadius: 50
+          dimension_filters: technology_category IN ('Operating System')
+          title: "Operating System Distribution"
+        width: 6
+
+      - leaderboard:
+          metrics_view: technology_metrics
+          dimensions: [technology_name]
+          measures: [unique_users]
+          num_rows: 15
+          dimension_filters: technology_category IN ('Web Framework')
+          title: "Top Web Frameworks"
+        width: 6
+    height: 350px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 5: Data Engineers — Compensation + Growth
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - bar_chart:
+          metrics_view: survey_metrics
+          x:
+            field: survey_year
+            type: nominal
+          y:
+            field: data_engineer_count
+            type: quantitative
+          title: "Data Engineers Over Time"
+        width: 4
+
+      - bar_chart:
+          metrics_view: survey_metrics
+          x:
+            field: experience_level
+            type: nominal
+          y:
+            field: median_compensation
+            type: quantitative
+          dimension_filters: is_data_engineer IN ('true')
+          title: "Data Engineer Comp by Experience"
+        width: 4
+
+      - bar_chart:
+          metrics_view: survey_metrics
+          x:
+            field: survey_year
+            type: nominal
+          y:
+            field: avg_job_satisfaction
+            type: quantitative
+          title: "Avg Job Satisfaction by Year"
+        width: 4
+    height: 300px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 6: Highest-Paying Tech by Category
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - leaderboard:
+          metrics_view: technology_metrics
+          dimensions: [technology_name]
+          measures: [median_comp_by_tech]
+          num_rows: 15
+          dimension_filters: technology_category IN ('Database')
+          title: "Highest-Paying Databases"
+        width: 6
+
+      - leaderboard:
+          metrics_view: technology_metrics
+          dimensions: [technology_name]
+          measures: [median_comp_by_tech]
+          num_rows: 15
+          dimension_filters: technology_category IN ('Platform')
+          title: "Highest-Paying Platforms"
+        width: 6
+    height: 350px
+
+filters:
+  enable: true
+
+theme: theme

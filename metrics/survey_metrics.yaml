@@ -11,6 +11,10 @@ smallest_time_grain: "year"
 
 # ─── Dimensions ─────────────────────────────────────
 dimensions:
+  - name: survey_year
+    column: survey_year
+    display_name: Survey Year
+
   - name: country
     column: country
     display_name: Country
@@ -42,6 +46,10 @@ dimensions:
   - name: comp_band
     column: comp_band
     display_name: Compensation Band
+
+  - name: is_data_engineer
+    column: is_data_engineer
+    display_name: Data Engineer?
 
   - name: ai_usage
     column: ai_usage
@@ -87,3 +95,23 @@ measures:
     display_name: "Avg Languages Known"
     expression: AVG(languages_count)
     format_d3: ".1f"
+
+  - name: avg_job_satisfaction
+    display_name: "Avg Job Satisfaction"
+    expression: AVG(job_satisfaction)
+    format_d3: ".1f"
+
+  - name: data_engineer_count
+    display_name: "Data Engineers"
+    expression: COUNT(CASE WHEN is_data_engineer THEN 1 END)
+    format_preset: humanize
+
+  - name: data_engineer_percentage
+    display_name: "Data Engineer %"
+    expression: 100.0 * COUNT(CASE WHEN is_data_engineer THEN 1 END) / NULLIF(COUNT(*), 0)
+    format_preset: percentage
+
+  - name: ai_adoption_rate
+    display_name: "AI Adoption %"
+    expression: 100.0 * COUNT(CASE WHEN ai_usage = 'Yes' THEN 1 END) / NULLIF(COUNT(CASE WHEN ai_usage IS NOT NULL THEN 1 END), 0)
+    format_preset: percentage

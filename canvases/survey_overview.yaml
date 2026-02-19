@@ -1,0 +1,208 @@
+# Stack Overflow Developer Survey 2019-2024 — Executive Overview
+
+type: canvas
+display_name: "Survey Overview"
+
+defaults:
+  time_range: P6Y
+
+rows:
+  # ═══════════════════════════════════════════════════════════
+  # Row 1: Key Metrics at a Glance
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - kpi_grid:
+          measures:
+            - respondent_count
+            - median_compensation
+            - remote_percentage
+            - avg_languages_known
+          metrics_view: survey_metrics
+        width: 12
+    height: 150px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 2: Respondents Over Time + Compensation Over Time
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - bar_chart:
+          metrics_view: survey_metrics
+          x:
+            field: survey_year
+            type: nominal
+          y:
+            field: respondent_count
+            type: quantitative
+          title: "Respondents by Year"
+        width: 6
+
+      - bar_chart:
+          metrics_view: survey_metrics
+          x:
+            field: survey_year
+            type: nominal
+          y:
+            field: median_compensation
+            type: quantitative
+          title: "Median Compensation by Year"
+        width: 6
+    height: 300px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 3: Top Languages + Top Databases
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - leaderboard:
+          metrics_view: technology_metrics
+          dimensions: [technology_name]
+          measures: [unique_users]
+          num_rows: 15
+          dimension_filters: technology_category IN ('Language')
+          title: "Top Languages"
+        width: 6
+
+      - leaderboard:
+          metrics_view: technology_metrics
+          dimensions: [technology_name]
+          measures: [unique_users]
+          num_rows: 15
+          dimension_filters: technology_category IN ('Database')
+          title: "Top Databases"
+        width: 6
+    height: 350px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 4: Top Editors/IDEs + Operating Systems
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - leaderboard:
+          metrics_view: technology_metrics
+          dimensions: [technology_name]
+          measures: [unique_users]
+          num_rows: 15
+          dimension_filters: technology_category IN ('Editor/IDE')
+          title: "Top Editors & IDEs"
+        width: 6
+
+      - leaderboard:
+          metrics_view: technology_metrics
+          dimensions: [technology_name]
+          measures: [unique_users]
+          num_rows: 15
+          dimension_filters: technology_category IN ('Operating System')
+          title: "Top Operating Systems"
+        width: 6
+    height: 350px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 5: Compensation by Experience + Remote Work Distribution
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - bar_chart:
+          metrics_view: survey_metrics
+          x:
+            field: experience_level
+            type: nominal
+          y:
+            field: median_compensation
+            type: quantitative
+          title: "Median Compensation by Experience"
+        width: 6
+
+      - pie_chart:
+          metrics_view: survey_metrics
+          color:
+            field: remote_work
+            type: nominal
+          measure:
+            field: respondent_count
+            type: quantitative
+          innerRadius: 50
+          title: "Remote Work Distribution"
+        width: 6
+    height: 300px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 6: Top Countries + Education Distribution
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - leaderboard:
+          metrics_view: survey_metrics
+          dimensions: [country]
+          measures: [respondent_count]
+          num_rows: 15
+          title: "Top Countries"
+        width: 6
+
+      - bar_chart:
+          metrics_view: survey_metrics
+          x:
+            field: education_level
+            type: nominal
+          y:
+            field: respondent_count
+            type: quantitative
+          title: "Education Distribution"
+        width: 6
+    height: 300px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 7: Highest-Paying Languages
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - leaderboard:
+          metrics_view: technology_metrics
+          dimensions: [technology_name]
+          measures: [median_comp_by_tech]
+          num_rows: 15
+          dimension_filters: technology_category IN ('Language')
+          title: "Highest-Paying Languages (Median Compensation)"
+        width: 12
+    height: 350px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 8: AI Adoption + AI Sentiment (2023-2024 only)
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - pie_chart:
+          metrics_view: survey_metrics
+          color:
+            field: ai_usage
+            type: nominal
+          measure:
+            field: respondent_count
+            type: quantitative
+          innerRadius: 50
+          dimension_filters: survey_year IN ('2023', '2024')
+          title: "AI Adoption (2023-2024)"
+        width: 4
+
+      - bar_chart:
+          metrics_view: survey_metrics
+          x:
+            field: ai_sentiment
+            type: nominal
+          y:
+            field: respondent_count
+            type: quantitative
+          dimension_filters: survey_year IN ('2023', '2024')
+          title: "AI Sentiment (2023-2024)"
+        width: 4
+
+      - bar_chart:
+          metrics_view: survey_metrics
+          x:
+            field: survey_year
+            type: nominal
+          y:
+            field: ai_adoption_rate
+            type: quantitative
+          dimension_filters: survey_year IN ('2023', '2024')
+          title: "AI Adoption Rate by Year"
+        width: 4
+    height: 300px
+
+filters:
+  enable: true
+
+theme: theme

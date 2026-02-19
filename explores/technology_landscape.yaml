@@ -9,7 +9,7 @@ dimensions: '*'
 measures: '*'
 
 defaults:
-  time_range: P1Y
+  time_range: P6Y
   dimensions:
     - technology_name
   measures:

@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(rill start:*)"
+      "Bash(rill start:*)",
+      "Bash(curl:*)",
+      "Bash(duckdb:*)"
     ]
   }
 }

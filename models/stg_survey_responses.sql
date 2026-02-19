@@ -1,11 +1,12 @@
--- Staging model: clean and type-cast 2024 Stack Overflow survey responses
+-- Staging model: clean and type-cast Stack Overflow survey responses (2019-2024)
 -- Source: sample_data.stackoverflow_survey.survey_results (available in every MotherDuck account)
 
 SELECT
     ResponseId,
 
-    -- Synthetic date for Rill timeseries (single-year snapshot)
-    MAKE_DATE(2024, 1, 1) AS survey_date,
+    -- Survey year as date for Rill timeseries (enables year-over-year comparison)
+    MAKE_DATE(CAST(year AS INTEGER), 1, 1) AS survey_date,
+    year AS survey_year,
 
     Country,
 
@@ -64,7 +65,10 @@ SELECT
         ELSE 'Principal (20+)'
     END AS experience_level,
 
-    -- AI columns
+    -- Job satisfaction (0-10 scale, available 2019-2020 and 2024)
+    TRY_CAST(JobSat AS INTEGER) AS job_satisfaction,
+
+    -- AI columns (2023+ only)
     CASE WHEN AISelect = 'NA' THEN NULL ELSE AISelect END AS ai_usage,
     CASE WHEN AISent  = 'NA' THEN NULL ELSE AISent  END AS ai_sentiment,
     CASE WHEN AIAcc   = 'NA' THEN NULL ELSE AIAcc   END AS ai_accuracy,
@@ -73,8 +77,14 @@ SELECT
     CASE WHEN LanguageHaveWorkedWith  = 'NA' THEN NULL ELSE LanguageHaveWorkedWith  END AS languages_raw,
     CASE WHEN DatabaseHaveWorkedWith  = 'NA' THEN NULL ELSE DatabaseHaveWorkedWith  END AS databases_raw,
     CASE WHEN PlatformHaveWorkedWith  = 'NA' THEN NULL ELSE PlatformHaveWorkedWith  END AS platforms_raw,
-    CASE WHEN WebframeHaveWorkedWith  = 'NA' THEN NULL ELSE WebframeHaveWorkedWith  END AS webframeworks_raw
+    CASE WHEN WebframeHaveWorkedWith  = 'NA' THEN NULL ELSE WebframeHaveWorkedWith  END AS webframeworks_raw,
+
+    -- Editors/IDEs (2021+)
+    CASE WHEN NEWCollabToolsHaveWorkedWith = 'NA' THEN NULL ELSE NEWCollabToolsHaveWorkedWith END AS editors_raw,
+    CASE WHEN NEWCollabToolsAdmired        = 'NA' THEN NULL ELSE NEWCollabToolsAdmired        END AS editors_admired_raw,
+
+    -- Operating systems for professional use (2022+)
+    CASE WHEN "OpSysProfessional use" = 'NA' THEN NULL ELSE "OpSysProfessional use" END AS os_raw
 
 FROM sample_data.stackoverflow_survey.survey_results
-WHERE year = '2024'
-  AND MainBranch = 'I am a developer by profession'
+WHERE MainBranch = 'I am a developer by profession'

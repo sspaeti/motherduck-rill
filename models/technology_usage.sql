@@ -5,6 +5,7 @@ WITH languages AS (
     SELECT
         ResponseId,
         survey_date,
+        survey_year,
         country,
         age,
         experience_level,
@@ -22,6 +23,7 @@ databases AS (
     SELECT
         ResponseId,
         survey_date,
+        survey_year,
         country,
         age,
         experience_level,
@@ -39,6 +41,7 @@ platforms AS (
     SELECT
         ResponseId,
         survey_date,
+        survey_year,
         country,
         age,
         experience_level,
@@ -56,6 +59,7 @@ webframeworks AS (
     SELECT
         ResponseId,
         survey_date,
+        survey_year,
         country,
         age,
         experience_level,
@@ -67,6 +71,42 @@ webframeworks AS (
     FROM stg_survey_responses,
          LATERAL UNNEST(STRING_SPLIT(webframeworks_raw, ';')) AS wf(value)
     WHERE webframeworks_raw IS NOT NULL
+),
+
+editors AS (
+    SELECT
+        ResponseId,
+        survey_date,
+        survey_year,
+        country,
+        age,
+        experience_level,
+        remote_work,
+        org_size,
+        comp_annual,
+        'Editor/IDE' AS technology_category,
+        TRIM(ed.value) AS technology_name
+    FROM stg_survey_responses,
+         LATERAL UNNEST(STRING_SPLIT(editors_raw, ';')) AS ed(value)
+    WHERE editors_raw IS NOT NULL
+),
+
+operating_systems AS (
+    SELECT
+        ResponseId,
+        survey_date,
+        survey_year,
+        country,
+        age,
+        experience_level,
+        remote_work,
+        org_size,
+        comp_annual,
+        'Operating System' AS technology_category,
+        TRIM(os.value) AS technology_name
+    FROM stg_survey_responses,
+         LATERAL UNNEST(STRING_SPLIT(os_raw, ';')) AS os(value)
+    WHERE os_raw IS NOT NULL
 )
 
 SELECT * FROM languages
@@ -76,3 +116,7 @@ UNION ALL
 SELECT * FROM platforms
 UNION ALL
 SELECT * FROM webframeworks
+UNION ALL
+SELECT * FROM editors
+UNION ALL
+SELECT * FROM operating_systems

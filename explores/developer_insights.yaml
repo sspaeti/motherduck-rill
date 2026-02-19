@@ -9,7 +9,8 @@ dimensions: '*'
 measures: '*'
 
 defaults:
-  time_range: P1Y
+  time_range: P6Y
+  comparison_mode: time
   dimensions:
     - country
   measures:

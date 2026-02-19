@@ -1,0 +1,18 @@
+type: explore
+
+display_name: "Database Explorer"
+description: "Explore database adoption, admiration, and desire — filter by Used/Admired/Desired, experience level, country, and more"
+
+metrics_view: database_metrics
+
+dimensions: '*'
+measures: '*'
+
+defaults:
+  time_range: P6Y
+  dimensions:
+    - database_name
+    - relationship
+  measures:
+    - unique_users
+    - median_compensation
