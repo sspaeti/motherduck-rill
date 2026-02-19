@@ -1,0 +1,17 @@
+type: explore
+
+display_name: "Technology Landscape"
+description: "Explore technology adoption across languages, databases, platforms, and frameworks"
+
+metrics_view: technology_metrics
+
+dimensions: '*'
+measures: '*'
+
+defaults:
+  time_range: P1Y
+  dimensions:
+    - technology_name
+  measures:
+    - unique_users
+    - avg_comp_by_tech

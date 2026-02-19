@@ -1,0 +1,146 @@
+# Stack Overflow Developer Survey 2024 — Executive Overview
+
+type: canvas
+display_name: "Survey Overview"
+
+defaults:
+  time_range: P1Y
+
+rows:
+  # ═══════════════════════════════════════════════════════════
+  # Row 1: Key Metrics at a Glance
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - kpi_grid:
+          measures:
+            - respondent_count
+            - median_compensation
+            - remote_percentage
+            - avg_languages_known
+          metrics_view: survey_metrics
+        width: 12
+    height: 150px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 2: Top Languages + Top Databases
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - leaderboard:
+          metrics_view: technology_metrics
+          dimension: technology_name
+          measure: unique_users
+          filters:
+            technology_category:
+              in: ["Language"]
+          title: "Top Languages"
+        width: 6
+
+      - leaderboard:
+          metrics_view: technology_metrics
+          dimension: technology_name
+          measure: unique_users
+          filters:
+            technology_category:
+              in: ["Database"]
+          title: "Top Databases"
+        width: 6
+    height: 350px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 3: Compensation by Experience + Remote Work Distribution
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - bar_chart:
+          metrics_view: survey_metrics
+          x:
+            field: experience_level
+            type: nominal
+          y:
+            field: median_compensation
+            type: quantitative
+          title: "Median Compensation by Experience"
+        width: 6
+
+      - pie_chart:
+          metrics_view: survey_metrics
+          color:
+            field: remote_work
+            type: nominal
+          measure:
+            field: respondent_count
+            type: quantitative
+          innerRadius: 50
+          title: "Remote Work Distribution"
+        width: 6
+    height: 300px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 4: Highest-Paying Languages
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - leaderboard:
+          metrics_view: technology_metrics
+          dimension: technology_name
+          measure: median_comp_by_tech
+          filters:
+            technology_category:
+              in: ["Language"]
+          title: "Highest-Paying Languages (Median Compensation)"
+        width: 12
+    height: 350px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 5: Top Countries + Education Distribution
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - leaderboard:
+          metrics_view: survey_metrics
+          dimension: country
+          measure: respondent_count
+          title: "Top Countries"
+        width: 6
+
+      - bar_chart:
+          metrics_view: survey_metrics
+          x:
+            field: education_level
+            type: nominal
+          y:
+            field: respondent_count
+            type: quantitative
+          title: "Education Distribution"
+        width: 6
+    height: 300px
+
+  # ═══════════════════════════════════════════════════════════
+  # Row 6: AI Adoption + AI Sentiment
+  # ═══════════════════════════════════════════════════════════
+  - items:
+      - pie_chart:
+          metrics_view: survey_metrics
+          color:
+            field: ai_usage
+            type: nominal
+          measure:
+            field: respondent_count
+            type: quantitative
+          innerRadius: 50
+          title: "AI Adoption"
+        width: 6
+
+      - bar_chart:
+          metrics_view: survey_metrics
+          x:
+            field: ai_sentiment
+            type: nominal
+          y:
+            field: respondent_count
+            type: quantitative
+          title: "AI Sentiment"
+        width: 6
+    height: 300px
+
+filters:
+  enable: true
+
+theme: theme

@@ -1,0 +1,6 @@
+compiler: rillv1
+
+display_name: "Stack Overflow Developer Survey"
+description: "Explore 50k+ developer responses from the 2024 Stack Overflow survey. Analyze compensation, technology adoption, remote work trends, and AI sentiment — powered by MotherDuck's sample_data."
+
+olap_connector: motherduck

@@ -1,0 +1,89 @@
+# Metrics on developer_profiles (one row per respondent)
+# For workforce, compensation, and sentiment analytics
+
+version: 1
+type: metrics_view
+
+display_name: "Developer Survey Metrics"
+model: developer_profiles
+timeseries: survey_date
+smallest_time_grain: "year"
+
+# ─── Dimensions ─────────────────────────────────────
+dimensions:
+  - name: country
+    column: country
+    display_name: Country
+
+  - name: age
+    column: age
+    display_name: Age Group
+
+  - name: education_level
+    column: education_level
+    display_name: Education Level
+
+  - name: experience_level
+    column: experience_level
+    display_name: Experience Level
+
+  - name: remote_work
+    column: remote_work
+    display_name: Remote Work
+
+  - name: dev_type
+    column: dev_type
+    display_name: Developer Type
+
+  - name: org_size
+    column: org_size
+    display_name: Organization Size
+
+  - name: comp_band
+    column: comp_band
+    display_name: Compensation Band
+
+  - name: ai_usage
+    column: ai_usage
+    display_name: AI Usage
+
+  - name: ai_sentiment
+    column: ai_sentiment
+    display_name: AI Sentiment
+
+# ─── Measures ───────────────────────────────────────
+measures:
+  - name: respondent_count
+    display_name: "Respondents"
+    expression: COUNT(*)
+    format_preset: humanize
+
+  - name: median_compensation
+    display_name: "Median Compensation"
+    expression: MEDIAN(comp_annual)
+    format_preset: currency_usd
+
+  - name: avg_compensation
+    display_name: "Avg Compensation"
+    expression: AVG(comp_annual)
+    format_preset: currency_usd
+
+  - name: p25_compensation
+    display_name: "P25 Compensation"
+    expression: QUANTILE_CONT(comp_annual, 0.25)
+    format_preset: currency_usd
+
+  - name: p75_compensation
+    display_name: "P75 Compensation"
+    expression: QUANTILE_CONT(comp_annual, 0.75)
+    format_preset: currency_usd
+
+  - name: remote_percentage
+    display_name: "Remote %"
+    expression: 100.0 * COUNT(CASE WHEN remote_work = 'Remote' THEN 1 END) / NULLIF(COUNT(CASE WHEN remote_work IS NOT NULL THEN 1 END), 0)
+    format_preset: percentage
+
+  - name: avg_languages_known
+    display_name: "Avg Languages Known"
+    expression: AVG(languages_count)
+    format_d3: ".1f"

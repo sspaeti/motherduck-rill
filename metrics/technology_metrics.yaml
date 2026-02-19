@@ -1,0 +1,53 @@
+# Metrics on technology_usage (one row per respondent per technology)
+# For technology adoption and compensation-by-tech analytics
+
+version: 1
+type: metrics_view
+
+display_name: "Technology Metrics"
+model: technology_usage
+timeseries: survey_date
+smallest_time_grain: "year"
+
+# ─── Dimensions ─────────────────────────────────────
+dimensions:
+  - name: technology_name
+    column: technology_name
+    display_name: Technology
+
+  - name: technology_category
+    column: technology_category
+    display_name: Category
+
+  - name: country
+    column: country
+    display_name: Country
+
+  - name: experience_level
+    column: experience_level
+    display_name: Experience Level
+
+  - name: remote_work
+    column: remote_work
+    display_name: Remote Work
+
+  - name: org_size
+    column: org_size
+    display_name: Organization Size
+
+# ─── Measures ───────────────────────────────────────
+measures:
+  - name: unique_users
+    display_name: "Users"
+    expression: COUNT(DISTINCT ResponseId)
+    format_preset: humanize
+
+  - name: avg_comp_by_tech
+    display_name: "Avg Compensation"
+    expression: AVG(comp_annual)
+    format_preset: currency_usd
+
+  - name: median_comp_by_tech
+    display_name: "Median Compensation"
+    expression: MEDIAN(comp_annual)
+    format_preset: currency_usd

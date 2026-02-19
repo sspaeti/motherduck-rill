@@ -1,0 +1,18 @@
+type: explore
+
+display_name: "Developer Insights"
+description: "Explore developer compensation, remote work, and demographics across countries and experience levels"
+
+metrics_view: survey_metrics
+
+dimensions: '*'
+measures: '*'
+
+defaults:
+  time_range: P1Y
+  dimensions:
+    - country
+  measures:
+    - respondent_count
+    - median_compensation
+    - remote_percentage

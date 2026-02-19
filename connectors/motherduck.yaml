@@ -1,0 +1,5 @@
+type: connector
+driver: duckdb
+token: "{{ .env.connector.motherduck.token }}"
+path: "md:"
+mode: readwrite

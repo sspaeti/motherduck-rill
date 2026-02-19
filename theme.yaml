@@ -1,0 +1,6 @@
+# Rill Theme — Stack Overflow brand colors
+type: theme
+
+colors:
+  primary: "#F48024"      # Stack Overflow Orange
+  secondary: "#242729"    # Stack Overflow Dark
