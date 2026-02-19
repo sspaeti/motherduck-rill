@@ -1,6 +1,6 @@
 # MotherDuck + Rill: Stack Overflow Developer Survey
 
-Companion repo for **[MotherDuck & Rill: Agentic Workflows for BI](https://sspaeti.com/blog/motherduck-rill-agentic-workflows-bi/)**. Clone, set one env var, run `make` — enterprise-grade analytics in minutes.
+Companion repo for **[MotherDuck & Rill: Agentic Workflows for BI](https://ssp.sp/blog/motherduck-rill-agentic-workflows-bi/)**. Clone, set one env var, run `make` — enterprise-grade analytics in minutes.
 
 Analyzes **600k+ professional developer responses** from the 2019–2024 Stack Overflow surveys using data already available in every free MotherDuck account (`sample_data.stackoverflow_survey`). Zero data pipeline needed.
 
