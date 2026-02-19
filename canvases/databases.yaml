@@ -44,7 +44,7 @@ rows:
           dimension_filters: relationship IN ('Used')
           title: Database Adoption Over Time
         width: 6
-    height: 400px
+    height: 452px
   - items:
       - leaderboard:
           metrics_view: database_metrics
@@ -56,7 +56,7 @@ rows:
           dimension_filters: relationship IN ('Desired')
           title: Most Desired Databases
         width: 12
-    height: 400px
+    height: 452px
   - items:
       - leaderboard:
           metrics_view: database_metrics
